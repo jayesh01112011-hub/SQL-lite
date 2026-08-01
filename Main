@@ -1,0 +1,19 @@
+"""
+main.py
+Entry point for the Login Attempt Tracker.
+Run this file to start the app: python main.py
+"""
+
+from db_connection import get_connection
+from db_schema import initialize_schema
+from menu import run_menu
+
+
+def main():
+    conn = get_connection()
+    initialize_schema(conn)
+    run_menu(conn)
+
+
+if __name__ == "__main__":
+    main()
