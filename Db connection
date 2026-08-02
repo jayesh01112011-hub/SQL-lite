@@ -1,0 +1,13 @@
+"""
+db_connection.py
+Handles connecting to the SQLite database file.
+"""
+
+import sqlite3
+from config import DB_NAME
+
+
+def get_connection():
+    """Open a connection to the SQLite database (creates the file if missing)."""
+    conn = sqlite3.connect(DB_NAME)
+    return conn
