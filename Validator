@@ -1,0 +1,21 @@
+"""
+validators.py
+Basic input validation for user-entered data.
+"""
+
+
+def is_valid_username(username):
+    return bool(username) and len(username.strip()) > 0
+
+
+def is_valid_ip(ip):
+    """Very basic IPv4 format check (not exhaustive, just a sanity check)."""
+    parts = ip.strip().split(".")
+    if len(parts) != 4:
+        return False
+    for part in parts:
+        if not part.isdigit():
+            return False
+        if not 0 <= int(part) <= 255:
+            return False
+    return True
