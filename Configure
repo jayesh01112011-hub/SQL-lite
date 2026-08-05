@@ -1,0 +1,8 @@
+"""
+config.py
+Central place for project-wide constants.
+Change values here instead of hunting through every file.
+"""
+
+DB_NAME = "login_attempts.db"
+DEFAULT_ALERT_THRESHOLD = 3
