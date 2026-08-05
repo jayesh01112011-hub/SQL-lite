@@ -1,0 +1,24 @@
+"""
+viewer.py
+Handles querying login attempts from the database.
+"""
+
+from formatter import print_attempts_table
+
+
+def view_attempts(conn, username=None):
+    """Fetch and display attempts, optionally filtered by username."""
+    cursor = conn.cursor()
+    if username:
+        cursor.execute(
+            "SELECT id, username, ip_address, success, timestamp FROM attempts "
+            "WHERE username = ? ORDER BY timestamp DESC",
+            (username,)
+        )
+    else:
+        cursor.execute(
+            "SELECT id, username, ip_address, success, timestamp FROM attempts "
+            "ORDER BY timestamp DESC"
+        )
+    rows = cursor.fetchall()
+    print_attempts_table(rows)
