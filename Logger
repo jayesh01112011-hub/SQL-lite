@@ -1,0 +1,17 @@
+"""
+logger.py
+Handles writing new login attempts to the database.
+"""
+
+from datetime import datetime
+
+
+def log_attempt(conn, username, ip, success):
+    """Insert a new login attempt record."""
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO attempts (username, ip_address, success, timestamp) VALUES (?, ?, ?, ?)",
+        (username, ip, int(success), datetime.now().isoformat())
+    )
+    conn.commit()
+    print(f"Logged attempt for '{username}' from {ip} — {'SUCCESS' if success else 'FAILED'}")
