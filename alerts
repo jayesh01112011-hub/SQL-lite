@@ -1,0 +1,21 @@
+"""
+alerts.py
+Handles detecting suspicious activity (repeated failed logins).
+"""
+
+from formatter import print_alerts_table
+
+
+def check_alerts(conn, threshold=3):
+    """Find usernames with failed-attempt counts at or above the threshold."""
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT username, COUNT(*) as fail_count
+        FROM attempts
+        WHERE success = 0
+        GROUP BY username
+        HAVING fail_count >= ?
+        ORDER BY fail_count DESC
+    """, (threshold,))
+    rows = cursor.fetchall()
+    print_alerts_table(rows, threshold)
